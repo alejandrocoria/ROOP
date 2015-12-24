@@ -1,0 +1,563 @@
+@Add1 0 2 3 n 7
+ 3
+4A
+
+@Add2 0 2 3 n 6
+ 1
+2A3
+
+@Add3 0 2 3 n 5
+ 2
+ A3
+
+@Add4 0 2 3 n 4
+ 
+1A3
+
+@Concat1 0 2 3 s ab
+ "a"
+'A
+b
+'
+
+@Concat2 0 2 3 s a4
+ "a"
+4A
+
+@Concat3 0 2 3 s abc
+ "a"
+'A'
+b c
+' '
+
+@Concat4 0 2 3 s ac
+ "a"
+ A'
+  c
+  '
+
+@Concat5 0 2 3 s bc
+ 
+'A'
+b c
+' '
+
+@Subtract1 0 2 3 n 2
+ 5
+3S
+
+@Subtract2 0 2 3 n 1
+ 5
+3S1
+
+@Subtract3 0 2 3 n 4
+ 5
+ S1
+
+@Subtract4 0 2 3 n 2
+ 
+3S1
+
+@Subtract5 0 2 3 n -3
+ 2
+5S
+
+@Remove1 0 2 3 s ac
+ "abc"
+'S
+b
+'
+
+@Remove2 0 2 3 s ac
+ "a7c"
+7S
+
+@Remove3 0 2 3 s c
+ "abc"
+'S'
+b a
+' '
+
+@Remove4 0 2 3 s b
+
+'S'
+a a
+b '
+'
+
+@Multiply1 0 2 3 n 12
+ 3
+4M
+
+@Multiply2 0 2 3 n 24
+ 4
+2M3
+
+@Multiply3 0 2 3 n 8
+ 4
+2M
+
+@Multiply4 0 2 3 n 12
+ 4
+ M3
+
+@Repeat1 0 2 3 e
+ "a"
+'M
+b
+'
+
+@Repeat2 0 2 3 s ababab
+ "ab"
+3M
+
+@Repeat3 0 2 3 s abababababab
+ "ab"
+3M2
+
+@Repeat4 0 2 3 s abab
+ "ab"
+ M2
+
+@Repeat5 0 2 3 s abababab
+ 
+'M4
+a
+b
+'
+
+@Divide1 0 2 3 n 4
+ 9
+2D
+
+@Divide2 0 2 3 n 4
+ (24)
+2D3
+
+@Divide3 0 2 3 n 3
+ 9
+ D3
+
+@Divide4 0 2 3 n 1
+ 
+4D4
+
+@Cut1 0 2 3 s a
+ "abcabc"
+'D
+b
+'
+
+@Cut2 0 3 2 s cabc
+ "abcabc"
+'D
+b
+'
+
+@Cut3 0 2 3 s ab
+ "abcabc"
+2D
+
+@Cut4 0 3 2 s cabc
+ "abcabc"
+2D
+
+@Cut5 0 3 2 s bc
+ "abcabc"
+[D
+-
+2
+]
+
+@Remainder1 0 2 3 n 1
+ 9
+2R
+
+@Remainder2 0 2 3 n 1
+ 9
+6R2
+
+@Remainder3 0 2 3 n 0
+ 9
+ R3
+
+@Remainder4 0 2 3 n 1
+
+7R3
+
+@Replace1 0 2 3 s avcavc
+ "abcabc"
+'R'
+b v
+' '
+
+@Replace2 0 2 3 e
+ "abcabc"
+'R
+b
+'
+
+@Replace3 0 2 3 e
+ "abcabc"
+ R'
+  v
+  '
+
+@Replace4 0 2 3 s 143341
+ "123321"
+2R4
+
+@gcd1 0 2 3 n 12
+ (60)
+[F
+2
+4
+]
+
+@gcd2 0 2 3 n 1
+ 7
+5F
+
+@gcd2 0 2 3 n 7
+ 7
+0F
+
+@Find1 0 2 3 n 2
+ "abcabc"
+'F
+c
+'
+
+@Find2 0 2 3 n -1
+ "abcabc"
+'F
+d
+'
+
+@Find3 0 2 3 n 4
+ "012345"
+4F
+
+@Prime1 0 2 3 n 1
+ (23)
+ P
+
+@Prime2 0 2 3 n 0
+ (27)
+ P
+
+@Prime3 0 3 2 n 1
+  #
+7P
+
+@Length1 0 2 3 n 5
+ "abcab"
+ P
+
+@Length2 0 3 2 n 2
+   
+'P
+a
+b
+'
+
+@Length3 0 2 3 n 0
+ ""
+ P
+
+@Reverse1 0 2 3 n 54321
+ (12345)
+ Z
+
+@Reverse2 0 2 3 s ytrewq
+ "qwerty"
+ Z
+
+@Reverse3 0 3 2 s zyx
+  #
+'Z
+x
+y
+z
+'
+
+@Reverse4 0 2 3 s 
+ ""
+ Z
+
+@Reverse3 0 2 3 n -321
+ (-00123)
+ Z
+
+@Empty1 0 2 3 n 1
+ 0
+ N
+
+@Empty2 0 2 3 n 1
+ ""
+ N
+
+@Empty3 0 2 3 n 0
+ (-4)
+ N
+
+@Empty4 0 2 3 n 0
+ "abc"
+ N
+
+@Empty5 0 2 3 n 0
+ I
+ N
+
+@Empty5 0 3 2 n 0
+   
+ON
+
+@Equal1 0 2 3 n 1
+ 5
+5E5
+
+@Equal2 0 2 3 n 0
+ 5
+4E5
+
+@Equal3 0 2 3 n 1
+ "e"
+'E
+e
+'
+
+@Equal4 0 2 3 n 0
+ "e"
+'E
+i
+'
+
+@Equal5 0 2 3 n 1
+ O
+OEO
+
+@Equal6 0 2 3 n 0
+ "2"
+2E
+
+@Greater1 0 2 3 n 1
+ 8
+6G4
+
+@Greater2 0 2 3 n 0
+ 8
+4G4
+
+@Greater3 0 2 3 n 1
+ "ac"
+'G'
+a a
+b a
+' '
+
+@Greater4 0 2 3 n 0
+ "a"
+'G
+b
+'
+
+@Greater5 0 2 3 n 1
+ "123"
+[G'
+1 1
+2 2
+2 1
+] '
+
+@cast1 0 2 3 s 4
+ 4
+ Y
+
+@cast2 0 2 3 n 4
+ "4"
+ Y
+
+@cast3 0 2 3 o
+ I
+ Y
+
+@cast4 0 2 3 i
+ O
+ Y
+
+@cast5 0 2 3 e
+ "asd"
+ Y
+
+@abs1 0 2 3 n 4
+ 4
+ L
+
+@abs2 0 2 3 n 3
+ (-3)
+ L
+
+@lower1 0 2 3 s aabbcc
+ "AaBbCc"
+ L
+
+@sign1 0 2 3 n 1
+ 4
+ U
+
+@sign2 0 2 3 n 0
+ 0
+ U
+
+@sign3 0 2 3 n -1
+ (-5)
+ U
+
+@upper1 0 2 3 s AABBCC
+ "AaBbCc"
+ U
+
+@tick1 2 2 5 n 2
+ 4
+
+
+ T
+
+@tick2 1 4 5 n 1
+ 4
+
+ V
+ --T
+
+@tick3 1 4 5 e
+ 0
+
+ V
+ --T
+
+@erase1 2 4 1 e
+ 4
+ ##X
+
+@erase2 1 3 1 e
+ 4 4
+ V
+ ---X
+
+@direction1 1 1 1 n 1
+ 1
+ C
+
+@direction2 3 1 3 e
+ 1
+  C
+
+@swap1 0 2 1 n 2
+ 1
+ c
+ 2
+
+@swap2 0 1 2 o
+ 
+IcO
+
+@turns1 0 8 4 n 7
+ 7
+ V >---->
+ | |   V<--*
+ --<    |
+   *    *
+
+@duplicator1 1 2 5 n 1
+ 3
+ V
+V%V
+ E
+# #
+
+@duplicator2 1 5 6 n 1
+ 3
+ V -|
+ --%V
+   V #
+    E
+   #
+
+@duplicator3 0 5 4 n 3
+ 3
+ V
+V%V-V
+# -%
+   
+@teleport1 0 10 4 n 5
+ 5
+ V
+ -!    !-V
+
+@teleport2 0 2 7 n 5
+ 5
+ V
+ !
+
+ !
+ V
+
+@bouncer1 0 8 4 n 7
+ 7
+ V -----|
+ | |   V---*
+ --|
+   *
+
+@copy1 0 2 1 n 8
+ 8
+ v
+
+@constant1 0 2 1 s abcdefghijklmnopqrstuvwxyz
+ /ll/
+
+@constant2 0 2 1 s ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ /ul/
+
+@constant3 0 2 1 s abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+ /al/
+
+@constant4 0 2 1 s  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+ /pa/
+
+@constant5 0 2 1 s 0123456789
+ /dd/
+
+@constant6 0 2 1 s 01234567
+ /od/
+
+@constant7 0 2 1 s 0123456789abcdef
+ /lhd/
+
+@constant8 0 2 1 s 0123456789ABCDEF
+ /uhd/
+
+@constant9 0 2 1 s 0123456789abcdefABCDEF
+ /ahd/
+
+@constant10 0 2 1 s ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+ /b64/
+
+@constant11 0 2 1 s 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+ /b58/
+
+@constant12 0 2 1 s 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ /b36/
+
+@constant13 0 2 1 s IVXLCDM
+ /rn/
+
+@constant14 0 2 1 n -9223372036854775808
+ /min/
+
+@constant15 0 2 1 n 9223372036854775807
+ /max/
+
+@constant16 0 2 1 s A
+ /321/
