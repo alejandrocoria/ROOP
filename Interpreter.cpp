@@ -264,7 +264,7 @@ randomEngine(std::chrono::high_resolution_clock::now().time_since_epoch().count(
 
 std::string Interpreter::getInputString() {
     std::string result;
-    std::cin >> result;
+    std::getline(std::cin, result);
     return result;
 }
 
@@ -548,16 +548,23 @@ void Interpreter::firstStage() {
         auto &line = grid[y];
         for (std::size_t x = 1; x < line.size() - 1; ++x) {
             Object &object = line[x];
+
+            Object &objU = grid[y - 1][x];
+            Object &objL = grid[y][x - 1];
+            Object &objR = grid[y][x + 1];
+            Object &objD = grid[y + 1][x];
+
+            if ((objU.type != Object::Type::Data) && (objL.type != Object::Type::Data) &&
+                (objR.type != Object::Type::Data) && (objD.type != Object::Type::Data)) {
+                    continue;
+            }
+
             if (check(object.type, Object::Type::Operator)) {
                 bool verticalAlreadyChecked = false;
                 bool horizontalAlreadyChecked = false;
                 for (std::size_t n = 0; n < object.op.io.size(); ++n) {
                     Operator::DataRequirements &req = object.op.io[n].req;
                     Operator::DataOutcome &out = object.op.io[n].out;
-                    Object &objU = grid[y - 1][x];
-                    Object &objL = grid[y][x - 1];
-                    Object &objR = grid[y][x + 1];
-                    Object &objD = grid[y + 1][x];
 
                     bool conforms;
                     bool vertical = false;
@@ -683,6 +690,7 @@ void Interpreter::secondStage() {
         bool fixed;
         bool empty;
         util::Dir direction;
+        int attemptsToOccupy = 0;
     };
 
     std::vector<std::vector<State>> stateGrid(grid.size(), std::vector<State>(grid.back().size()));
@@ -699,6 +707,11 @@ void Interpreter::secondStage() {
                 state.fixed = false;
                 state.empty = false;
                 state.direction = util::Dir::Down;
+                ++stateGrid[y + 1][x].attemptsToOccupy;
+                if (object.data.direction == util::Dir::Left)
+                    ++stateGrid[y][x - 1].attemptsToOccupy;
+                else
+                    ++stateGrid[y][x + 1].attemptsToOccupy;
             } else if (object.type == Object::Type::Empty) {
                 state.fixed = false;
                 state.empty = true;
@@ -750,14 +763,18 @@ void Interpreter::secondStage() {
                 State &newState = stateGrid[newY][newX];
                 if (newState.empty) {
                     moveObject(x, y, newX, newY);
-                    goto start;
+                    --newState.attemptsToOccupy;
+                    if (state.attemptsToOccupy > 1)
+                        goto start;
                 } else if (newState.fixed){
                     if (state.direction == util::Dir::Down)
                         state.direction = object.data.direction;
                     else
                         state.fixed = true;
+                    --newState.attemptsToOccupy;
                 } else if (state.direction == util::invert(newState.direction)) {
                     state.fixed = true;
+                    --newState.attemptsToOccupy;
                 }
             }
         }
