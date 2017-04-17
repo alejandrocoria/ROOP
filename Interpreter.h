@@ -34,19 +34,19 @@ typedef std::vector<std::string> GridSource;
 
 class Interpreter {
 public:
-	Interpreter(bool debugMode, TestManager::Test *test = nullptr);
+    Interpreter(bool debugMode, TestManager::Test *test = nullptr);
 
-	std::string getInputString();
-	Number getInputNumber();
-	void output(const std::string &s);
-	void output(Number n);
-	void halt(bool print = false);
-	Number rand(Number n = 0);
+    std::string getInputString();
+    Number getInputNumber();
+    void output(const std::string &s);
+    void output(Number n);
+    void halt(bool print = false);
+    Number rand(Number n = 0);
 
-	bool load(std::stringstream &stream);
-	bool execute();
+    bool load(std::stringstream &stream);
+    bool execute();
 
-	Number tick;
+    Number tick;
 private:
     bool parse();
     Object parseLiteral(char ch, std::size_t x, std::size_t y);

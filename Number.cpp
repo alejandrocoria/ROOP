@@ -26,7 +26,7 @@ namespace {
 
 template<typename T>
 std::string to_string(const T& obj){
-	std::ostringstream os;
+    std::ostringstream os;
     os << obj;
     return os.str();
 }

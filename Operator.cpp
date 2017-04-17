@@ -134,7 +134,7 @@ void cutString(std::string s, Number pos, std::string &first, std::string &last)
     if (pos <= 0) {
         first = "";
         last = s;
-    } else if (pos >= s.length()) {
+    } else if (pos >= static_cast<Number>(s.length())) {
         first = s;
         last = "";
     }
@@ -189,12 +189,12 @@ std::string reverse(std::string s) {
     return s;
 }
 
-Number abs(Number n) {
+/*Number abs(Number n) {
     if (n < 0)
         return -n;
     else
         return n;
-}
+}*/
 
 Number sign(Number n) {
     if (n > 0)

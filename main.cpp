@@ -60,16 +60,16 @@ int main(int argc, char *argv[]) {
 
     std::ifstream fstream(file);
 
-	if (!fstream.is_open()) {
+    if (!fstream.is_open()) {
         std::cout << "The file could not be opened (" << file << ")";
         return 1;
-	}
+    }
 
 
-	char first = '\0';
-	fstream.get(first);
+    char first = '\0';
+    fstream.get(first);
 
-	if (first == '@') {
+    if (first == '@') {
         TestManager testManager{fstream};
 
         for (std::size_t i = 0; i < testManager.getCount(); ++i) {
@@ -109,26 +109,26 @@ int main(int argc, char *argv[]) {
         std::cout << "Fail:  " << failCount << "\n";
         std::cout << "Total: " << testManager.getCount() << "\n";
 
-	} else {
-	    std::stringstream stream;
+    } else {
+        std::stringstream stream;
 
         if (first != '\0')
             stream << first;
 
-	    stream << fstream.rdbuf();
-	    stream.clear();
-	    stream << '\n';
+        stream << fstream.rdbuf();
+        stream.clear();
+        stream << '\n';
 
-	    Interpreter interpreter{debug};
+        Interpreter interpreter{debug};
 
         if (!interpreter.load(stream))
             return 2;
 
         if (!interpreter.execute())
             return 3;
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 void usage() {
