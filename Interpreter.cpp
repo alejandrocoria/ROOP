@@ -275,7 +275,7 @@ Number Interpreter::getInputNumber() {
     do{
         std::getline(std::cin, tmp);
         std::stringstream ss(tmp);
-        exit = ss >> result;
+        exit = static_cast<bool>(ss >> result);
     } while (!exit);
 
     return result;
@@ -308,22 +308,22 @@ Number Interpreter::rand(Number n){
 bool Interpreter::load(std::stringstream &stream) {
     gridSource.push_back(std::string());
 
-	std::string line;
-	std::size_t longer = 0;
-	while (std::getline(stream, line)) {
+    std::string line;
+    std::size_t longer = 0;
+    while (std::getline(stream, line)) {
         gridSource.push_back(std::string("#" + line));
         if (gridSource.back().size() > longer)
             longer = gridSource.back().size();
-	}
+    }
 
-	gridSource[0] = std::string(longer + 1, '#');
+    gridSource[0] = std::string(longer + 1, '#');
 
-	for (std::size_t i = 1; i < gridSource.size(); ++i) {
+    for (std::size_t i = 1; i < gridSource.size(); ++i) {
         gridSource[i].resize(longer, ' ');
         gridSource[i].push_back('#');
-	}
+    }
 
-	gridSource.push_back(std::string(longer + 1, '#'));
+    gridSource.push_back(std::string(longer + 1, '#'));
 
     return parse();
 }
@@ -424,6 +424,7 @@ Object Interpreter::parseLiteral(char ch, std::size_t startX, std::size_t startY
         case '\'':  type = Type::String;    chEnd = '\''; break;
         case '/':   type = Type::Constant;  chEnd = '/';  break;
         case '\\':  type = Type::Constant;  chEnd = '\\'; break;
+        default: assert(false); abort();
     }
 
     Number theNumber = 0;
@@ -758,6 +759,7 @@ void Interpreter::secondStage() {
                     case util::Dir::Down:   newX = x; newY = y + 1; break;
                     case util::Dir::Left:   newX = x - 1; newY = y; break;
                     case util::Dir::Right:  newX = x + 1; newY = y; break;
+                    default: assert(false); abort();
                 }
 
                 State &newState = stateGrid[newY][newX];
