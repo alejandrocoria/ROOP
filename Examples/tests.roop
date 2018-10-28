@@ -250,6 +250,14 @@ d
   #
 7P
 
+@Prime4 0 2 3 n 1
+ (-11)
+ P
+ 
+ @Prime5 0 2 3 n 0
+ (-42)
+ P
+
 @Length1 0 2 3 n 5
  "abcab"
  P
