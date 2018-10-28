@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class Pipe {
 public:
-    enum class Type {Horizontal, Vertical, Intersection, Bouncer, TurnR, TurnL, Duplicator,
-                     Teleport, Eraser};
+    enum class Type {Horizontal, Vertical, Intersection, Bouncer, TurnR, TurnL, Duplicator, Teleport, Eraser};
 
     Type type;
 private:

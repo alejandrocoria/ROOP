@@ -45,8 +45,8 @@ Object Object::CreateOperator(char ch) {
         case 'W':
             if (lower) {
                 obj.op.code = Operator::Code::w;
-                obj.op.io.push_back({{DType::Input, DType::None, DType::None, DType::Output},
-                                    {}});
+                obj.op.io.push_back({{DType::Input, DType::None, DType::None, DType::Output}, // Requirements: up, left, right, down
+                                    {}});                                                     // Outcome:      down, right, left, up
                 obj.op.io.push_back({{DType::NorS, DType::None, DType::None, DType::Output},
                                     {}});
                 obj.op.io.push_back({{DType::Input},

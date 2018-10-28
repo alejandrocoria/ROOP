@@ -47,7 +47,7 @@ const std::string romanNumerals ="IVXLCDM";
 const std::string literals =     "{([\"'/\\";
 const std::string horLiterals =  "{(\"/";
 const std::string pipes =        "-|+*><%!x";
-const std::string operators =    "WwCcLlUuAaSsMmDdRrFfPpZz  NnEeGgKkYy  VvXTtHh";
+const std::string operators =    "WwCcLlUuAaSsMmDdRrFfPpZz" "NnEeGgKkYy" "VvXTtHh";
 
 bool contain(const std::string &s, char ch) {
     return s.find(ch) != std::string::npos;
@@ -121,8 +121,11 @@ Object getConstant(const std::string &s) {
     return Object();
 }
 
+// Forward declaration so that placeObject can use it. Both functions can be called mutually.
+// It is undefined behavior if the loop is infinite (it will probably fill the stack).
 bool sendObject(Grid &, const Object &, std::size_t, std::size_t, util::Dir);
 
+// Try to place an object in a free space or send it through a pipe. Return true on success.
 bool placeObject(Grid &grid, const Object &obj, std::size_t x, std::size_t y, util::Dir dir, bool force = false) {
     Object::Type type = grid[y][x].type;
 
@@ -229,10 +232,9 @@ bool sendObject(Grid &grid, const Object &obj, std::size_t x, std::size_t y, uti
                         return sendObject(grid, obj, x, y, dir);
                     }
 
-                    if ((y == 0) || (x == 0) || (y == grid.size() - 1) ||
-                        (x == grid[y].size() - 1)) {
-                            return false;
-                    } else if (grid[y][x].type == Object::Type::Pipe){
+                    if ((y == 0) || (x == 0) || (y == grid.size() - 1) || (x == grid[y].size() - 1)) {
+                        return false;
+                    } else if (grid[y][x].type == Object::Type::Pipe) {
                         if (grid[y][x].pipe.type == Pipe::Type::Teleport) {
                             found = true;
                         }
@@ -272,7 +274,7 @@ Number Interpreter::getInputNumber() {
     Number result;
     std::string tmp;
     bool exit = false;
-    do{
+    do {
         std::getline(std::cin, tmp);
         std::stringstream ss(tmp);
         exit = static_cast<bool>(ss >> result);
@@ -294,7 +296,7 @@ void Interpreter::halt(bool print) {
     printAll = print;
 }
 
-Number Interpreter::rand(Number n){
+Number Interpreter::rand(Number n) {
     if (n > 0) {
         return std::uniform_int_distribution<Number>{0, n - 1}(randomEngine);
     } else if (n < 0) {
@@ -541,8 +543,7 @@ void Interpreter::firstStage() {
     };
 
     auto allNone = [](Operator::DataOutcome &out) -> bool {
-        return (out.up == Data::Type::None) && (out.left == Data::Type::None) &&
-               (out.right == Data::Type::None) && (out.down == Data::Type::None);
+        return (out.up == Data::Type::None) && (out.left == Data::Type::None) && (out.right == Data::Type::None) && (out.down == Data::Type::None);
     };
 
     for (std::size_t y = 1; y < grid.size() - 1; ++y) {
@@ -572,15 +573,13 @@ void Interpreter::firstStage() {
                     bool horizontal = false;
                     if (object.op.separateAxes) {
                         if (!verticalAlreadyChecked)
-                            vertical   = conformsType(objU, req.up) &&
-                                         conformsType(objD, req.down);
+                            vertical   = conformsType(objU, req.up) && conformsType(objD, req.down);
                         if (!horizontalAlreadyChecked)
-                            horizontal = conformsType(objL, req.up) &&
-                                         conformsType(objR, req.down);
+                            horizontal = conformsType(objL, req.up) && conformsType(objR, req.down);
                         conforms = vertical || horizontal;
                     } else {
                         conforms = conformsType(objU, req.up) && conformsType(objL, req.left) &&
-                            conformsType(objD, req.down) && conformsType(objR, req.right);
+                                   conformsType(objD, req.down) && conformsType(objR, req.right);
                     }
 
                     if (!conforms)
@@ -598,9 +597,9 @@ void Interpreter::firstStage() {
                                     placedV = true;
                                 } else {
                                     if ((out.up != Data::Type::None) && placeObject(newGrid, result.first, x, y - 1, util::Dir::Up, object.op.replace))
-                                            placedV = true;
+                                        placedV = true;
                                     if ((out.down != Data::Type::None) && placeObject(newGrid, result.second, x, y + 1, util::Dir::Down, object.op.replace) )
-                                            placedV = true;
+                                        placedV = true;
                                 }
                             }
                         }
@@ -611,9 +610,9 @@ void Interpreter::firstStage() {
                                     placedH = true;
                                 } else {
                                     if ((out.up != Data::Type::None) && placeObject(newGrid, result.first, x - 1, y, util::Dir::Left, object.op.replace))
-                                            placedH = true;
+                                        placedH = true;
                                     if ((out.down != Data::Type::None) && placeObject(newGrid, result.second, x + 1, y, util::Dir::Right, object.op.replace))
-                                            placedH = true;
+                                        placedH = true;
                                 }
                             }
                         }
@@ -624,13 +623,13 @@ void Interpreter::firstStage() {
                                 placed = true;
                             } else {
                                 if ((out.up != Data::Type::None) && placeObject(newGrid, result.up, x, y - 1, util::Dir::Up, object.op.replace))
-                                        placed = true;
+                                    placed = true;
                                 if ((out.left != Data::Type::None) && placeObject(newGrid, result.left, x - 1, y, util::Dir::Left, object.op.replace))
-                                        placed = true;
+                                    placed = true;
                                 if ((out.right != Data::Type::None) && placeObject(newGrid, result.right, x + 1, y, util::Dir::Right, object.op.replace))
-                                        placed = true;
+                                    placed = true;
                                 if ((out.down != Data::Type::None) && placeObject(newGrid, result.down, x, y + 1, util::Dir::Down, object.op.replace))
-                                        placed = true;
+                                    placed = true;
                             }
                         }
                     }
@@ -768,7 +767,7 @@ void Interpreter::secondStage() {
                     --newState.attemptsToOccupy;
                     if (state.attemptsToOccupy > 1)
                         goto start;
-                } else if (newState.fixed){
+                } else if (newState.fixed) {
                     if (state.direction == util::Dir::Down)
                         state.direction = object.data.direction;
                     else

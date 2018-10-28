@@ -30,12 +30,12 @@ struct Result;
 class Object {
 public:
     enum class Type {
-        Empty           = 0x0,
-        Data            = 0x1,
-        NormalOperator  = 0x2,
-        SpecialOperator = 0x4,
-        Pipe            = 0x8,
-        Block           = 0x10,
+        Empty           = 0b00000,
+        Data            = 0b00001,
+        NormalOperator  = 0b00010,
+        SpecialOperator = 0b00100,
+        Pipe            = 0b01000,
+        Block           = 0b10000,
         Operator        = NormalOperator | SpecialOperator
     };
 

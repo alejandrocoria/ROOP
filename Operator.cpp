@@ -41,7 +41,7 @@ bool isAlpha(char ch) {
 
 std::string toLower(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(),
-                   [](char ch){
+                   [](char ch) {
                        return isAlpha(ch) ? std::tolower(ch) : ch;
                    });
     return s;
@@ -49,7 +49,7 @@ std::string toLower(std::string s) {
 
 std::string toUpper(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(),
-                   [](char ch){
+                   [](char ch) {
                        return isAlpha(ch) ? std::toupper(ch) : ch;
                    });
     return s;
@@ -86,15 +86,12 @@ std::string repeatString(const std::string &s, Number n) {
 std::string repeatString(const Object &a, const Object &b, const Object &c, bool &success) {
     success = true;
 
-    if ((a.data.type == Data::Type::String) && (b.data.type == Data::Type::Number) &&
-        (c.data.type == Data::Type::Number)) {
-            return repeatString(a.data.string, b.data.number * c.data.number);
-    } else if ((a.data.type == Data::Type::Number) && (b.data.type == Data::Type::String) &&
-        (c.data.type == Data::Type::Number)) {
-            return repeatString(b.data.string, a.data.number * c.data.number);
-    } else if ((a.data.type == Data::Type::Number) && (b.data.type == Data::Type::Number) &&
-        (c.data.type == Data::Type::String)) {
-            return repeatString(c.data.string, a.data.number * b.data.number);
+    if ((a.data.type == Data::Type::String) && (b.data.type == Data::Type::Number) && (c.data.type == Data::Type::Number)) {
+        return repeatString(a.data.string, b.data.number * c.data.number);
+    } else if ((a.data.type == Data::Type::Number) && (b.data.type == Data::Type::String) && (c.data.type == Data::Type::Number)) {
+        return repeatString(b.data.string, a.data.number * c.data.number);
+    } else if ((a.data.type == Data::Type::Number) && (b.data.type == Data::Type::Number) && (c.data.type == Data::Type::String)) {
+        return repeatString(c.data.string, a.data.number * b.data.number);
     }
 
     success = false;
@@ -140,7 +137,6 @@ void cutString(std::string s, Number pos, std::string &first, std::string &last)
     }
 
     first = s.substr(0, pos);
-
     last = s.substr(pos);
 }
 
@@ -189,13 +185,6 @@ std::string reverse(std::string s) {
     return s;
 }
 
-/*Number abs(Number n) {
-    if (n < 0)
-        return -n;
-    else
-        return n;
-}*/
-
 Number sign(Number n) {
     if (n > 0)
         return 1;
@@ -207,12 +196,12 @@ Number sign(Number n) {
 
 bool isPrime(Number n) {
     if (n < 0)
-        n = abs(n);
+        n = std::abs(n);
 
     if (n < 2)
         return false;
 
-    if ( n == 2)
+    if (n == 2)
         return true;
 
     if (n % 2 == 0)
@@ -227,8 +216,8 @@ bool isPrime(Number n) {
 }
 
 Number gcd(Number a, Number b) {
-    a = abs(a);
-    b = abs(b);
+    a = std::abs(a);
+    b = std::abs(b);
 
     while (b != 0) {
         Number t = b;
@@ -344,9 +333,7 @@ Result Operator::processAll(std::size_t n, Object &up, Object &left, Object &rig
                     result.down.data.number = up.data.number - left.data.number - right.data.number;
                     break;
                 case 1:
-                    result.down.data.string = removeString(
-                                                  removeString(up.data.toS(), left.data.toS()),
-                                                  right.data.toS());
+                    result.down.data.string = removeString(removeString(up.data.toS(), left.data.toS()), right.data.toS());
                     break;
                 case 2:
                     result.down.data.number = up.data.number - left.data.number;
@@ -402,8 +389,7 @@ Result Operator::processAll(std::size_t n, Object &up, Object &left, Object &rig
                     if ((left.data.number == 0) || (right.data.number == 0))
                         result.success = false;
                     else
-                        result.down.data.number = up.data.number / left.data.number /
-                                                  right.data.number;
+                        result.down.data.number = up.data.number / left.data.number / right.data.number;
                     break;
                 case 1:
                     if (left.data.number == 0)
@@ -424,12 +410,10 @@ Result Operator::processAll(std::size_t n, Object &up, Object &left, Object &rig
                         result.down.data.number = left.data.number / right.data.number;
                     break;
                 case 4:
-                    cutString(up.data.string, left.data.number,
-                              result.down.data.string, result.right.data.string);
+                    cutString(up.data.string, left.data.number, result.down.data.string, result.right.data.string);
                     break;
                 case 5:
-                    cutString(up.data.string, left.data.string,
-                              result.down.data.string, result.right.data.string);
+                    cutString(up.data.string, left.data.string, result.down.data.string, result.right.data.string);
                     break;
             }
             break;
@@ -439,12 +423,10 @@ Result Operator::processAll(std::size_t n, Object &up, Object &left, Object &rig
                     if ((left.data.number == 0) || (right.data.number == 0))
                         result.success = false;
                     else
-                        result.down.data.number = up.data.number % left.data.number %
-                                                  right.data.number;
+                        result.down.data.number = up.data.number % left.data.number % right.data.number;
                     break;
                 case 1:
-                    result.down.data.string = replaceString(up.data.toS(), left.data.toS(),
-                                                            right.data.toS());
+                    result.down.data.string = replaceString(up.data.toS(), left.data.toS(), right.data.toS());
                     break;
                 case 2:
                     if (left.data.number == 0)
@@ -495,12 +477,10 @@ Result Operator::processAll(std::size_t n, Object &up, Object &left, Object &rig
         case Operator::Code::G:
             switch (n) {
                 case 0:
-                    result.down.data.number = (up.data.number > left.data.number) &&
-                                              (left.data.number > right.data.number);
+                    result.down.data.number = (up.data.number > left.data.number) && (left.data.number > right.data.number);
                     break;
                 case 1:
-                    result.down.data.number = (up.data.toS() > left.data.toS()) &&
-                                              (left.data.toS() > right.data.toS());
+                    result.down.data.number = (up.data.toS() > left.data.toS()) && (left.data.toS() > right.data.toS());
                     break;
                 case 2:
                     result.down.data.number = up.data.number > left.data.number;
@@ -564,7 +544,7 @@ Result Operator::processAxis(std::size_t n, Object &first, Object &second) {
         case Operator::Code::L:
             switch (n) {
                 case 0:
-                    result.second.data.number = abs(first.data.number);
+                    result.second.data.number = std::abs(first.data.number);
                     break;
                 case 1:
                     result.second.data.string = toLower(first.data.string);
@@ -610,10 +590,8 @@ Result Operator::processAxis(std::size_t n, Object &first, Object &second) {
                     result.second.data.number = interpreter->rand(first.data.number);
                     break;
                 case 1:
-                    if (!first.data.string.empty()) {
-                        result.second.data.string +=
-                            first.data.string[interpreter->rand(first.data.string.size())];
-                    }
+                    if (!first.data.string.empty())
+                        result.second.data.string += first.data.string[interpreter->rand(first.data.string.size())];
                     break;
             }
             break;

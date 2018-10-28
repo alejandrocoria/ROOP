@@ -33,8 +33,7 @@ public:
         Data::Type left;
         Data::Type right;
         Data::Type down;
-        DataRequirements(Data::Type up = Data::Type::None, Data::Type left = Data::Type::None,
-                    Data::Type right = Data::Type::None, Data::Type down = Data::Type::None):
+        DataRequirements(Data::Type up = Data::Type::None, Data::Type left = Data::Type::None, Data::Type right = Data::Type::None, Data::Type down = Data::Type::None):
             up(up), left(left), right(right), down(down) {}
     };
     struct DataOutcome {
@@ -42,8 +41,7 @@ public:
         Data::Type right;
         Data::Type left;
         Data::Type up;
-        DataOutcome(Data::Type down = Data::Type::None, Data::Type right = Data::Type::None,
-                    Data::Type left = Data::Type::None, Data::Type up = Data::Type::None):
+        DataOutcome(Data::Type down = Data::Type::None, Data::Type right = Data::Type::None, Data::Type left = Data::Type::None, Data::Type up = Data::Type::None):
             down(down), right(right), left(left), up(up) {}
     };
     struct DataPair {
@@ -65,6 +63,8 @@ public:
     Code code;
     bool noRemove;
     InAndOut io;
+    // If separateAxes is true only 'up' and 'down' are used in the requirements and outcome (the others must be None),
+    // although in fact both are going to be applied separately to the pairs up-down and left-right.
     bool separateAxes = false;
     bool replace = false;
 private:

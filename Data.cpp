@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 std::string Data::toS() const {
     if (type == Type::String) {
         return string;
-    } else if (type == Type::Number){
+    } else if (type == Type::Number) {
         return toString(number);
     } else {
         return "";
@@ -32,7 +32,7 @@ std::string Data::toS() const {
 bool Data::empty() const {
     if (type == Type::String) {
         return string.empty();
-    } else if (type == Type::Number){
+    } else if (type == Type::Number) {
         return number == 0;
     } else {
         return false;
@@ -45,7 +45,7 @@ bool Data::operator==(const Data &other) {
 
     if (type == Type::String) {
         return string == other.string;
-    } else if (type == Type::Number){
+    } else if (type == Type::Number) {
         return number == other.number;
     } else {
         return true;

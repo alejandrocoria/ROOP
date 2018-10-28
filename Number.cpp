@@ -19,26 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "Number.h"
 
-#include <cmath>
-#include <sstream>
-
-namespace {
-
-template<typename T>
-std::string to_string(const T& obj){
-    std::ostringstream os;
-    os << obj;
-    return os.str();
+std::string toString(Number number) {
+    return std::to_string(number);
 }
 
-}
-
-std::string toString(Number number){
-    return to_string(number);
-}
-
-bool fromString(const std::string &s, Number &number) {
-    std::stringstream ss(s);
-    ss >> number;
-    return !ss.fail();
+bool fromString(const std::string &s, Number &number) try {
+    number = std::stoll(s);
+    return true;
+} catch(...) {
+    return false;
 }

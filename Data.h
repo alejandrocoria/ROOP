@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 class Data {
 public:
     enum class Type {
-        None    = 0x0,
-        Number  = 0x1,
-        String  = 0x2,
-        Input   = 0x4,
-        Output  = 0x8,
+        None    = 0b0000,
+        Number  = 0b0001,
+        String  = 0b0010,
+        Input   = 0b0100,
+        Output  = 0b1000,
         NorS    = Number | String,
         Any     = Number | String | Input | Output
     };
